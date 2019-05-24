@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {ScrollView,StyleSheet,TouchableOpacity,ImageBackground,Dimensions,FlatList,Image } from 'react-native'
+import {ScrollView,StyleSheet,TouchableOpacity,ImageBackground,Dimensions,FlatList,Image,AsyncStorage } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import {Block, Card, Text } from '../components';

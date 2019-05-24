@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ActivityIndicator, Keyboard, KeyboardAvoidingView,ScrollView,StyleSheet,TouchableOpacity,ImageBackground,Dimensions,TouchableWithoutFeedback } from 'react-native'
+import { ActivityIndicator, Keyboard, KeyboardAvoidingView,ScrollView,StyleSheet,TouchableOpacity,ImageBackground,Dimensions,TouchableWithoutFeedback,AsyncStorage } from 'react-native'
 
 import { Button, Block, Input, Text } from '../components';
 import { theme,utils } from '../constants';
@@ -21,6 +21,7 @@ export default class Login extends Component {
       loading: false,
     };
   }
+
 
   handleLogin() {
     const { navigation } = this.props;
@@ -55,7 +56,8 @@ export default class Login extends Component {
       .then((res) => res.json())
       .then((res) => {
         if(res.result == 1){
-          navigation.navigate('Categories');
+					utils.setToken('1');
+          navigation.navigate('Explore');
         }
         else{
           alert('Kullanıcı doğrulanamadı');

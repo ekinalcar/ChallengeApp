@@ -18,6 +18,8 @@ import Forgot from '../screens/Forgot';
 import Detail from '../screens/Detail';
 import Category from '../screens/Category';
 
+
+
 const SignedOut = createStackNavigator({
   Login: {
     screen: Login,
@@ -40,12 +42,6 @@ const SignedOut = createStackNavigator({
 });
 
 const SignedIn = createBottomTabNavigator({
-  Profile: {
-    screen: Profile,
-    navigationOptions: () => ({
-      tabBarIcon: ({tintColor}) => <Icon name='user' color={tintColor} size={12}/>
-    })
-  },
   Explore: {
     screen: Explore,
     navigationOptions: () => ({
@@ -62,6 +58,12 @@ const SignedIn = createBottomTabNavigator({
     screen: Popular,
     navigationOptions: () => ({
       tabBarIcon: ({tintColor}) => <Icon name='fire' color={tintColor} size={12}/>
+    })
+  },
+  Profile: {
+    screen: Profile,
+    navigationOptions: () => ({
+      tabBarIcon: ({tintColor}) => <Icon name='user' color={tintColor} size={12}/>
     })
   },
 
@@ -85,7 +87,8 @@ const Stack = createStackNavigator({
     screen: Detail,
   }
 });
-export default createAppContainer(createSwitchNavigator(
+
+const FullRouteLoggedIn = createAppContainer(createSwitchNavigator(
   {
     SignedIn: SignedIn,
     SignedOut: SignedOut,
@@ -95,3 +98,31 @@ export default createAppContainer(createSwitchNavigator(
     initialRouteName: 'SignedIn'
   }
 ));
+
+const FullRouteLoggedOut = createAppContainer(createSwitchNavigator(
+  {
+    SignedIn: SignedIn,
+    SignedOut: SignedOut,
+    Stack:Stack
+  },
+  {
+    initialRouteName: 'SignedOut'
+  }
+));
+
+export default class AppNavigator extends React.Component {
+
+  render() {
+    const {loginData} = this.props;
+      if(loginData == 'true'){
+        return(
+          <FullRouteLoggedIn/>
+        )
+      }else{
+        return(
+          <FullRouteLoggedOut/>
+        )
+      }
+
+  }
+}

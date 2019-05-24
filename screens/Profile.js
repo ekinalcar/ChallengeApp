@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 import {Block,Text,Divider,Card } from '../components';
 
-import { theme,data } from '../constants';
+import { theme,data,utils } from '../constants';
 
 const {width} = Dimensions.get('window');
 
@@ -65,15 +65,26 @@ export default class Profile extends Component {
     return <Text medium>{profile[name]}</Text>
   }
 
+  handleLogout(){
+		utils.removeToken('access_token').then((res) => {
+			if (res){
+        this.props.navigation.navigate('Login')
+      }
+		})
+  }
+
   render() {
     const { profile,editing} = this.state;
     return (
       <SafeAreaView style={styles.container}>
         <ScrollView showsVerticalScrollIndicator={false}>
-          <Block flex={false} row>
+          <Block flex={false} row space='between'>
             <Block>
               <Text size={32} medium style={styles.mainHeader}>Profile</Text>
               <Text size={14} light style={styles.subHeader}>Edit your categories and profile</Text>
+            </Block>
+            <Block style={{position:'absolute',right:0,top:0}}>
+              <TouchableOpacity onPress={() => this.handleLogout()}><Text>LOGOUT</Text></TouchableOpacity>
             </Block>
           </Block>
           <Divider padding={[1,0]} flex={false} color='gray'/>
@@ -180,7 +191,7 @@ const styles = StyleSheet.create({
     paddingTop:15,
   },
   category: {
-    width:width * 0.43,
+    width:width * 0.42,
     height: 100,
     marginRight:10
   },
