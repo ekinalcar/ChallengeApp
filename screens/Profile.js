@@ -84,7 +84,7 @@ export default class Profile extends Component {
               <Text size={14} light style={styles.subHeader}>Edit your categories and profile</Text>
             </Block>
             <Block style={{position:'absolute',right:0,top:0}}>
-              <TouchableOpacity onPress={() => this.handleLogout()}><Text>LOGOUT</Text></TouchableOpacity>
+              <TouchableOpacity onPress={() => this.handleLogout()}><Icon name='sign-out' size={26} color='black' /></TouchableOpacity>
             </Block>
           </Block>
           <Divider padding={[1,0]} flex={false} color='gray'/>
@@ -133,12 +133,12 @@ export default class Profile extends Component {
               <TouchableOpacity>
                 <Card shadow>
                   <Block style={styles.acceptedChallengeImageContainer}>
-                    <ImageBackground style={styles.acceptedChallengeImage} source={require('../assets/images/Explore/illustration.png')}>
+                    <ImageBackground style={styles.acceptedChallengeImage} source={{uri:'https://i.imgur.com/UYiroysl.jpg'}}>
                     <Block flex={1} row style={{justifyContent:'flex-end',alignItems:'flex-start'}}>
                       <Text size={14} style={styles.acceptedChallengeCategory} bold>03:03:11</Text>
                     </Block>
                       <Block flex={1} row space='between' style={{alignItems:'flex-end'}}>
-                        <Text size={14} style={styles.acceptedChallengeCategory} bold>LOGO</Text>
+                        <Icon name='reddit' size={26} style={styles.acceptedChallengeLogo} color='orange' />
                         <Text size={14} style={styles.acceptedChallengeCategory} bold>Eating</Text>
                       </Block>
                     </ImageBackground>
@@ -265,6 +265,10 @@ const styles = StyleSheet.create({
   timer:{
     color:'white',
     fontWeight:'bold'
+  },
+  acceptedChallengeLogo:{
+    padding:5,
+    margin:10,
   },
   acceptedChallengeCategory:{
     borderWidth:2,

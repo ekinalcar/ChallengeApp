@@ -1,13 +1,15 @@
 import React, { Component } from 'react'
-import {ScrollView,StyleSheet,TouchableOpacity,ImageBackground,Dimensions,FlatList,Image,AsyncStorage } from 'react-native'
+import {ScrollView,StyleSheet,TouchableOpacity,ImageBackground,Dimensions,FlatList,Image } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome';
-
-import {Block, Card, Text } from '../components';
-import { theme,data } from '../constants';
-
-const {width,height} = Dimensions.get('window');
-
+import Carousel from 'react-native-snap-carousel';
+import {Block, Card, Text,SliderEntry } from '../components';
+import { theme,data,animations} from '../constants';
+import { sliderWidth, itemWidth } from '../constants/SliderEntry.style';
+import SliderStyles, { colors } from '../constants/index.style';
 import Challenge from '../components/Challenge';
+
+const {width} = Dimensions.get('window');
+const SLIDER_1_FIRST_ITEM = 3;
 
 export default class Explore extends Component {
 
@@ -15,6 +17,7 @@ export default class Explore extends Component {
     illustrations: [],
     categories: [],
     popular:[],
+    slider1ActiveSlide: SLIDER_1_FIRST_ITEM
   }
 
   componentDidMount() {
@@ -25,28 +28,84 @@ export default class Explore extends Component {
     });
   }
 
-  renderIllustrations(){
-    return (
-      <FlatList
-      style={styles.slider}
-      horizontal = {true}
-      pagingEnabled = {true}
-      scrollEnabled = {true}
-      showsHorizontalScrollIndicator={false}
-      scrollEventThrottle={16}
-      snapToAlignment='center'
-      data={this.state.illustrations}
-      keyExtractor={(item) => `${item.id}`}
-      renderItem={({ item }) => (
-          <Image
-            source={item.source}
-            resizeMode="contain"
-            style={{ width:width, height: height / 2, overflow: 'visible' }}
-          />
-        )}
-      />
-    )
+  _renderItem ({item, index}) {
+      return <SliderEntry data={item} even={(index + 1) % 2 === 0} />;
   }
+
+  _renderItemWithParallax ({item, index}, parallaxProps) {
+    return (
+        <SliderEntry
+          data={item}
+          even={(index + 1) % 2 === 0}
+          parallax={true}
+          parallaxProps={parallaxProps}
+        />
+    );
+  }
+
+  _renderLightItem ({item, index}) {
+    return <SliderEntry key={index} data={item} even={false} />;
+  }
+
+  _renderDarkItem ({item, index}) {
+    return <SliderEntry key={index} data={item} even={true} />;
+  }
+
+  mainExample () {
+    return (
+        <Block style={styles.slider}>
+          <Carousel
+            ref={c => this._slider1Ref = c}
+            data={this.state.illustrations}
+            initialNumToRender={this.state.illustrations.length}
+            renderItem={this._renderItemWithParallax}
+            sliderWidth={sliderWidth}
+            itemWidth={itemWidth}
+            hasParallaxImages={true}
+            firstItem = {SLIDER_1_FIRST_ITEM}
+            inactiveSlideScale={0.94}
+            inactiveSlideOpacity={0.7}
+            containerCustomStyle={SliderStyles.slider}
+            contentContainerCustomStyle={SliderStyles.sliderContentContainer}
+            loop={true}
+            loopClonesPerSide={2}
+            autoplay={true}
+            autoplayDelay={500}
+            autoplayInterval={3000}
+            onSnapToItem={(index) => this.setState({ slider1ActiveSlide: index }) }
+          />
+        </Block>
+    );
+  }
+
+  renderIllustrations () {
+      return (
+          <Carousel
+            data={this.state.illustrations}
+            renderItem={this._renderLightItem}
+            sliderWidth={sliderWidth}
+            itemWidth={itemWidth}
+            layout='tinder'
+            loop={true}
+          />
+      );
+  }
+
+  customExample (refNumber, renderItemFunc) {
+       return (
+         <Carousel
+          data={this.state.illustrations}
+           renderItem={renderItemFunc}
+           sliderWidth={sliderWidth}
+           itemWidth={itemWidth}
+           containerCustomStyle={styles.slider}
+           contentContainerCustomStyle={styles.sliderContentContainer}
+           scrollInterpolator={animations.scrollInterpolators[`scrollInterpolator${refNumber}`]}
+           slideInterpolatedStyle={animations.animatedStyles[`animatedStyles${refNumber}`]}
+           useScrollView={true}
+         />
+       )
+   }
 
   renderTab(){
     return (
@@ -90,15 +149,16 @@ export default class Explore extends Component {
   }
 
   render() {
+    const slideShow = this.customExample(3, this._renderDarkItem);
     return (
-      <ScrollView style={styles.container}>
+      <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
         <ImageBackground style={styles.imageTop} source={require('../assets/images/Login/ch_3.png')}>
           <Block padding={[75, theme.sizes.base * 2,0]}>
             <Text h2 bold color={theme.colors.white} style={{marginBottom:10}}>Explore</Text>
             <Text size={14} color={theme.colors.white}>Suggested challenges for you</Text>
           </Block>
         </ImageBackground>
-        {this.renderIllustrations()}
+        {slideShow}
         <Block style={styles.challenges}>
           <Text h3 bold color={theme.colors.black}>More Challenge</Text>
           <Text size={12} medium color={theme.colors.black} style={{marginTop:5}}>Browse more challenge by category</Text>

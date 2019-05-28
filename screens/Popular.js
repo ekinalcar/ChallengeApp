@@ -22,11 +22,18 @@ export default class Popular extends Component {
       sort : 'latest',
       show_me: 'all',
       categories: [],
+      itemPressed: -1
      }
 
     if (Platform.OS === 'android') {
       UIManager.setLayoutAnimationEnabledExperimental(true);
     }
+  }
+
+  typeSelected(value) {
+    this.setState({
+       itemPressed: value
+    });
   }
 
   componentDidMount() {
@@ -42,6 +49,7 @@ export default class Popular extends Component {
   }
 
   renderTab(){
+    const {itemPressed} = this.state;
     return (
       <FlatList
       horizontal = {true}
@@ -53,16 +61,21 @@ export default class Popular extends Component {
       data={this.state.categories}
       keyExtractor={(item) => `${item.id}`}
       renderItem={({ item,index }) => (
-        <TouchableOpacity style={styles.category} key={index}>
-          <Card center style={[styles.card,{backgroundColor:item.color}]}>
+        <TouchableOpacity
+          style={styles.category}
+          key={index}
+          onPress={() => this.typeSelected(item.id)}
+        >
+          <Card center style={[styles.card,{backgroundColor: itemPressed  === item.id ? item.color : 'gray'}]}>
             <Image source={item.icon} style={styles.categoryIcon}/>
           </Card>
-          <Text size={12} center style={styles.categoryName} medium color='black'>{item.name}</Text>
+          <Text size={12} center style={styles.categoryName} medium color='black'>{item.name.toLowerCase()}</Text>
         </TouchableOpacity>
         )}
       />
     )
   }
+
 
   renderFilter(){
     const {sort,show_me} = this.state;
@@ -235,5 +248,5 @@ const styles = StyleSheet.create({
   },
   popularChallenges:{
     marginTop:15,
-  },
+  }
 });
