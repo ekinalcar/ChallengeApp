@@ -135,11 +135,11 @@ export default class Profile extends Component {
                   <Block style={styles.acceptedChallengeImageContainer}>
                     <ImageBackground style={styles.acceptedChallengeImage} source={{uri:'https://i.imgur.com/UYiroysl.jpg'}}>
                     <Block flex={1} row style={{justifyContent:'flex-end',alignItems:'flex-start'}}>
-                      <Text size={14} style={styles.acceptedChallengeCategory} bold>03:03:11</Text>
+                      <Text size={14} style={[styles.acceptedChallengeCategory,styles.timer]} bold>03:03:11</Text>
                     </Block>
                       <Block flex={1} row space='between' style={{alignItems:'flex-end'}}>
                         <Icon name='reddit' size={26} style={styles.acceptedChallengeLogo} color='orange' />
-                        <Text size={14} style={styles.acceptedChallengeCategory} bold>Eating</Text>
+                        <Text style={styles.acceptedChallengeCategory} size={14} bold>Eating</Text>
                       </Block>
                     </ImageBackground>
                   </Block>
@@ -256,7 +256,7 @@ const styles = StyleSheet.create({
     marginVertical:10
   },
   infoText:{
-    fontSize:12,
+    fontSize:14,
     fontWeight:'500'
   },
   timerContainer:{
@@ -273,12 +273,16 @@ const styles = StyleSheet.create({
   acceptedChallengeCategory:{
     borderWidth:2,
     borderRadius:10,
-    backgroundColor:'rgba(128,128,128,0.8)',
+    backgroundColor:theme.colors.purple,
     padding:5,
     margin:10,
     color:'white',
-    borderColor:'gray',
+    borderColor:theme.colors.purple,
     overflow:'hidden'
+  },
+  timer:{
+    borderColor:'gray',
+    backgroundColor:'rgba(128,128,128,0.8)',
   },
   logo:{
     paddingRight:10

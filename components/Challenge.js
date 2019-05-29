@@ -61,7 +61,6 @@ const styles = StyleSheet.create({
   popularImageContainer:{
     alignItems:'flex-end',
     borderRadius:10,
-    borderWidth:1,
     borderColor:'gray',
     overflow: 'hidden',
   },

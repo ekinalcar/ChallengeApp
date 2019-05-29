@@ -12,6 +12,30 @@ export default class Detail extends Component {
     header:null
   });
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      timer: 44555
+    }
+  }
+
+  componentDidMount(){
+    this.interval = setInterval(
+      () => this.setState((prevState)=> ({ timer: prevState.timer - 1 })),
+      1000
+    );
+  }
+
+  componentDidUpdate(){
+    if(this.state.timer === 1){
+      clearInterval(this.interval);
+    }
+  }
+
+  componentWillUnmount(){
+   clearInterval(this.interval);
+  }
+
   renderHeader(){
     const { navigation } = this.props;
     const challengeId = navigation.getParam('challengeId', 'NO-ID');
@@ -45,7 +69,7 @@ export default class Detail extends Component {
               <Text size={14} bold>Adidas</Text>
             </Block>
             <Block flex={false} style={styles.timerContainer}>
-              <Text style={styles.timer}>23:09:32</Text>
+              <Text style={styles.timer}>{this.state.timer}</Text>
             </Block>
           </Block>
           <Block flex={false} style={styles.titleContainer}>

@@ -13,7 +13,6 @@ const serializeKey = (data) => {
 
 async function getToken(){
 	var access_token = await AsyncStorage.getItem('access_token');
-	//console.log('buradayiz : ' +  access_token);
 	if(access_token !== null){
 		return true;
 	}

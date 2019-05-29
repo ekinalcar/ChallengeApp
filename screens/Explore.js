@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {ScrollView,StyleSheet,TouchableOpacity,ImageBackground,Dimensions,FlatList,Image } from 'react-native'
+import {ScrollView,StyleSheet,TouchableOpacity,ImageBackground,Dimensions,FlatList,Image,SafeAreaView } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Carousel from 'react-native-snap-carousel';
 import {Block, Card, Text,SliderEntry } from '../components';
@@ -44,11 +44,11 @@ export default class Explore extends Component {
   }
 
   _renderLightItem ({item, index}) {
-    return <SliderEntry key={index} data={item} even={false} />;
+    return <SliderEntry  key={index} data={item} even={false} />;
   }
 
   _renderDarkItem ({item, index}) {
-    return <SliderEntry key={index} data={item} even={true} />;
+    return <SliderEntry navigation={this.props.navigation} key={index} data={item} even={true} />;
   }
 
   mainExample () {
@@ -92,20 +92,44 @@ export default class Explore extends Component {
   }
 
   customExample (refNumber, renderItemFunc) {
-       return (
-         <Carousel
-          data={this.state.illustrations}
-           renderItem={renderItemFunc}
-           sliderWidth={sliderWidth}
-           itemWidth={itemWidth}
-           containerCustomStyle={styles.slider}
-           contentContainerCustomStyle={styles.sliderContentContainer}
-           scrollInterpolator={animations.scrollInterpolators[`scrollInterpolator${refNumber}`]}
-           slideInterpolatedStyle={animations.animatedStyles[`animatedStyles${refNumber}`]}
-           useScrollView={true}
-         />
-       )
-   }
+     return (
+       <Carousel
+         data={this.state.illustrations}
+         renderItem={renderItemFunc}
+         sliderWidth={sliderWidth}
+         itemWidth={itemWidth}
+         containerCustomStyle={styles.slider}
+         contentContainerCustomStyle={styles.sliderContentContainer}
+         scrollInterpolator={animations.scrollInterpolators[`scrollInterpolator${refNumber}`]}
+         slideInterpolatedStyle={animations.animatedStyles[`animatedStyles${refNumber}`]}
+         useScrollView={true}
+       />
+     )
+ }
+
+  momentumExample () {
+    return (
+        <Block style={styles.slider}>
+            <Carousel
+              data={this.state.illustrations}
+              renderItem={this._renderItem}
+              sliderWidth={sliderWidth}
+              itemWidth={itemWidth}
+              inactiveSlideScale={0.95}
+              inactiveSlideOpacity={1}
+              enableMomentum={true}
+              activeSlideAlignment={'start'}
+              containerCustomStyle={SliderStyles.slider}
+              contentContainerCustomStyle={SliderStyles.sliderContentContainer}
+              activeAnimationType={'spring'}
+              activeAnimationOptions={{
+                  friction: 4,
+                  tension: 40
+              }}
+            />
+        </Block>
+      );
+    }
 
   renderTab(){
     return (
@@ -149,9 +173,9 @@ export default class Explore extends Component {
   }
 
   render() {
-    const slideShow = this.customExample(3, this._renderDarkItem);
+    const slideShow = this.customExample(3, this._renderDarkItem.bind(this));
     return (
-      <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <ImageBackground style={styles.imageTop} source={require('../assets/images/Login/ch_3.png')}>
           <Block padding={[75, theme.sizes.base * 2,0]}>
             <Text h2 bold color={theme.colors.white} style={{marginBottom:10}}>Explore</Text>

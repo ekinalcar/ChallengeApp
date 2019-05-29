@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {StyleSheet,SafeAreaView,Dimensions,TouchableOpacity,Image} from 'react-native';
+import {StyleSheet,SafeAreaView,Dimensions,TouchableOpacity,Image,AsyncStorage} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { Block, Card, Text,Divider} from '../components';
@@ -9,6 +9,7 @@ import { theme,data } from '../constants';
 const {width} = Dimensions.get('window');
 
 export default class Categories extends Component {
+  
   state = {
     categories: [],
     favorite: [],
@@ -17,10 +18,8 @@ export default class Categories extends Component {
   toggleFav = item => {
     const id = item.id;
     this.setState(({ favorite }) => ({
-      favorite: this.isFavorite(item)
-        ? favorite.filter(a => a !== id)
-        : [...favorite, id],
-    }));
+      favorite: this.isFavorite(item) ? favorite.filter(a => a != id) : [...favorite, id],
+    }))
   };
 
   isFavorite = item => {
@@ -32,6 +31,24 @@ export default class Categories extends Component {
     this.setState({
       categories:this.props.categories,
     });
+    this.getFromStorage();
+  }
+
+  addToStorage(favCategories){
+    AsyncStorage.setItem('categories', JSON.stringify(favCategories));
+  }
+
+  async getFromStorage(){
+    return AsyncStorage.getItem('categories').then(req => JSON.parse(req))
+      .then((json) => {
+        this.setState({
+          favorite:json
+        });
+        }
+      )
+  }
+  componentDidUpdate(){
+    this.addToStorage(this.state.favorite);
   }
 
   render() {

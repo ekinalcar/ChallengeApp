@@ -22,7 +22,6 @@ export default class Login extends Component {
     };
   }
 
-
   handleLogin() {
     const { navigation } = this.props;
     var email = this.state.email;
@@ -69,7 +68,7 @@ export default class Login extends Component {
   }
 
   render() {
-    const { navigation } = this.props;
+    const { navigation} = this.props;
     const { loading, errors } = this.state;
     const hasErrors = key => errors.includes(key) ? styles.hasErrors : null;
 
