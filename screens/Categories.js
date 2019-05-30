@@ -13,7 +13,6 @@ export default class Categories extends Component {
   state = {
     categories: [],
     favorite: [],
-    test:[],
   }
 
   toggleFav = item => {
