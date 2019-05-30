@@ -11,9 +11,12 @@
     "prop-types": "^15.7.2",
     "react": "16.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
+    "react-native-fbsdk": "^0.8.0",
+    "react-native-instagram-login": "^1.1.1",
     "react-native-keyboard-aware-scroll-view": "^0.8.0",
     "react-native-snap-carousel": "^3.8.0",
     "react-native-vector-icons": "^6.4.2",
+    "react-native-webview": "^5.10.0",
     "react-navigation": "^3.9.2"
   },
   "devDependencies": {

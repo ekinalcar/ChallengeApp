@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import { ActivityIndicator, Keyboard, KeyboardAvoidingView,ScrollView,StyleSheet,TouchableOpacity,ImageBackground,Dimensions,TouchableWithoutFeedback,AsyncStorage } from 'react-native'
-
+import { ActivityIndicator, Keyboard, KeyboardAvoidingView,ScrollView,StyleSheet,TouchableOpacity,ImageBackground,Dimensions,TouchableWithoutFeedback,Alert } from 'react-native'
 import { Button, Block, Input, Text } from '../components';
 import { theme,utils } from '../constants';
+import { Facebook } from 'expo';
 
 const DismissKeyboard = ({children}) =>(
 	<TouchableWithoutFeedback onPress={()=>Keyboard.dismiss()}>
@@ -19,6 +19,7 @@ export default class Login extends Component {
       password:'',
       errors: [],
       loading: false,
+			userInfo:null,
     };
   }
 
@@ -67,6 +68,26 @@ export default class Login extends Component {
     }
   }
 
+	async logIn() {
+	  try {
+			const { navigation } = this.props;
+	    const {type,token} = await Facebook.logInWithReadPermissionsAsync('2307676729290603', {permissions: ['public_profile','email'], behavior: "web"});
+
+	    if (type === 'success') {
+	      const response = await fetch(`https://graph.facebook.com/me?fields=id,picture,name,first_name,last_name,email,gender&access_token=${token}`);
+				const userInfo = await response.json();
+				this.setState({userInfo});
+	      //Alert.alert('Logged in!', `Hi ${(await response.json()).name}!`);
+				utils.setToken('1');
+				navigation.navigate('Explore');
+	    } else {
+	     	Alert.alert('hata');
+	    }
+	  } catch ({ message }) {
+	    alert(`Facebook Login Error: ${message}`);
+	  }
+	}
+
   render() {
     const { navigation} = this.props;
     const { loading, errors } = this.state;
@@ -108,6 +129,12 @@ export default class Login extends Component {
 	                <Text bold white center>Login</Text>
 	              }
 	            </Button>
+							<Button style={[styles.loginButton,styles.facebook]} onPress={() => this.logIn()}>
+	              {loading ?
+	                <ActivityIndicator size="small" color="white" /> :
+	                <Text bold white center>Facebook Connect</Text>
+	              }
+	            </Button>
 	            <Text gray bold medium center>Don't have an account?
 	              <Text onPress={()=>navigation.navigate('Register')} color={theme.colors.purple}> Sign Up</Text>
 	            </Text>
@@ -140,5 +167,10 @@ const styles = StyleSheet.create({
     marginVertical:30,
     borderRadius:5,
 		backgroundColor:theme.colors.purple
-  }
+  },
+	facebook:{
+		marginVertical:0,
+		marginBottom:30,
+		backgroundColor:theme.colors.blue
+	}
 })

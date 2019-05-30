@@ -160,7 +160,7 @@ export default class Popular extends Component {
               <Icon name='filter' color='black' size={25} />
             </TouchableOpacity>
           </Block>
-          <Text size={14} light style={styles.subHeader}>Discover popular challenges</Text>
+          <Text size={16} light style={styles.subHeader}>Discover popular challenges</Text>
         </Block>
         <Divider padding={[1,0]} flex={false} color='gray'/>
         <Block flex={false} style={{ height: this.state.expanded ? null : 0, overflow: 'hidden'}}>

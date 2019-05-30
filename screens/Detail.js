@@ -9,7 +9,7 @@ const {width} = Dimensions.get('window');
 export default class Detail extends Component {
 
   static navigationOptions = ({navigation}) => ({
-    header:null
+    header:null,
   });
 
   constructor(props) {
@@ -40,12 +40,11 @@ export default class Detail extends Component {
     const { navigation } = this.props;
     const challengeId = navigation.getParam('challengeId', 'NO-ID');
     const challengeName = navigation.getParam('challengeName', 'NO-NAME');
-
     return(
       <ImageBackground style={styles.imageTop} source={require('../assets/images/Login/ch_3.png')}>
         <Block padding={[75, theme.sizes.base * 2]} row space='between'>
           <TouchableOpacity onPress={() => {
-              navigation.navigate('Category', {
+              navigation.navigate('Category',{
                 categoryName: challengeName,
                 categoryId: challengeId
               });

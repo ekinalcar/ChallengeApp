@@ -22,8 +22,23 @@
     "assetBundlePatterns": [
       "**/*"
     ],
+    "facebookScheme": "fb2307676729290603",
+    "facebookAppId": "2307676729290603",
+    "facebookDisplayName": "com.ChallengeApp",
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "host.exp.Exponent",
+      "icon": "./assets/images/icon.png",
+      "infoPlist": {
+        "NSCameraUsageDescription": "App needs permission to access your photos to set your venue photo.",
+        "NSLocationWhenInUseUsageDescription": "App uses your location to show remote working venues near to you.",
+        "LSApplicationQueriesSchemes": [
+          "fbapi",
+          "fb-messenger-share-api",
+          "fbauth2",
+          "fbshareextension"
+        ]
+      }
     },
     "description": ""
   }

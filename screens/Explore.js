@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {ScrollView,StyleSheet,TouchableOpacity,ImageBackground,Dimensions,FlatList,Image,SafeAreaView } from 'react-native'
+import {ScrollView,StyleSheet,TouchableOpacity,ImageBackground,Dimensions,FlatList,Image} from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Carousel from 'react-native-snap-carousel';
 import {Block, Card, Text,SliderEntry } from '../components';
@@ -152,7 +152,7 @@ export default class Explore extends Component {
           <Card center style={[styles.card,{backgroundColor:item.color}]}>
             <Image source={item.icon} style={styles.categoryIcon}/>
           </Card>
-          <Text size={12} center style={styles.categoryName} medium color='black'>{item.name}</Text>
+          <Text size={16} center style={styles.categoryName} medium color='black'>{item.name}</Text>
         </TouchableOpacity>
         )}
       />
@@ -179,25 +179,25 @@ export default class Explore extends Component {
         <ImageBackground style={styles.imageTop} source={require('../assets/images/Login/ch_3.png')}>
           <Block padding={[75, theme.sizes.base * 2,0]}>
             <Text h2 bold color={theme.colors.white} style={{marginBottom:10}}>Explore</Text>
-            <Text size={14} color={theme.colors.white}>Suggested challenges for you</Text>
+            <Text size={18} color={theme.colors.white}>Suggested challenges for you</Text>
           </Block>
         </ImageBackground>
         {slideShow}
         <Block style={styles.challenges}>
-          <Text h3 bold color={theme.colors.black}>More Challenge</Text>
-          <Text size={12} medium color={theme.colors.black} style={{marginTop:5}}>Browse more challenge by category</Text>
+          <Text h2 bold color={theme.colors.black}>More Challenge</Text>
+          <Text size={14} medium color={theme.colors.black} style={{marginTop:5}}>Browse more challenge by category</Text>
           <Block style={styles.categories} row>
             {this.renderTab()}
           </Block>
         </Block>
         <Block style={styles.challenges}>
           <Block style={styles.nowPopular}>
-            <Text h3 bold color={theme.colors.black}>Now Popular</Text>
+            <Text h2 bold color={theme.colors.black}>Now Popular</Text>
             <TouchableOpacity onPress={() => this.props.navigation.navigate('Popular')}>
               <Icon style={styles.arrowIcon} name='arrow-right' color={theme.colors.purple} size={10} />
             </TouchableOpacity>
           </Block>
-          <Text size={12} medium color={theme.colors.black} style={{marginTop:5}}>Discover popular challenges</Text>
+          <Text size={14} medium color={theme.colors.black} style={{marginTop:5}}>Discover popular challenges</Text>
           <Block style={styles.popularChallenges} column>
             {this.renderPopular()}
           </Block>
@@ -223,7 +223,7 @@ const styles = StyleSheet.create({
 		resizeMode:'contain'
 	},
   slider:{
-    marginTop:-130
+    marginTop:-120
   },
   challenges:{
     paddingHorizontal: theme.sizes.base * 2,

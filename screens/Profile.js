@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {StyleSheet,ScrollView,SafeAreaView,TouchableOpacity,Image,Dimensions,TextInput,ImageBackground } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import {Block,Text,Divider,Card } from '../components';
+import {Block,Text,Divider,Card} from '../components';
 
 import { theme,data,utils } from '../constants';
 
@@ -81,7 +81,7 @@ export default class Profile extends Component {
           <Block flex={false} row space='between'>
             <Block>
               <Text size={32} medium style={styles.mainHeader}>Profile</Text>
-              <Text size={14} light style={styles.subHeader}>Edit your categories and profile</Text>
+              <Text size={16} light style={styles.subHeader}>Edit your categories and profile</Text>
             </Block>
             <Block style={{position:'absolute',right:0,top:0}}>
               <TouchableOpacity onPress={() => this.handleLogout()}><Icon name='sign-out' size={26} color='black' /></TouchableOpacity>
@@ -97,7 +97,7 @@ export default class Profile extends Component {
                     <Icon name={this.isFavorite(category) ? 'minus' : 'plus'} />
                   </Block>
                   <Image source={category.icon} style={styles.categoryIcon}/>
-                  <Text size={13} medium color='white' style={styles.categoryName}>{category.name}</Text>
+                  <Text size={16} medium color='white' style={styles.categoryName}>{category.name}</Text>
                 </Card>
               </TouchableOpacity>
             ))}

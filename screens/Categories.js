@@ -9,7 +9,7 @@ import { theme,data } from '../constants';
 const {width} = Dimensions.get('window');
 
 export default class Categories extends Component {
-  
+
   state = {
     categories: [],
     favorite: [],
@@ -57,7 +57,7 @@ export default class Categories extends Component {
         <Block flex={false} row>
           <Block>
             <Text size={32} medium style={styles.mainHeader}>Categories</Text>
-            <Text size={14} light style={styles.subHeader}>Choose your category based on your interest</Text>
+            <Text size={16} light style={styles.subHeader}>Choose your category based on your interest</Text>
           </Block>
         </Block>
         <Divider padding={[1,0]} flex={false} color='gray'/>
@@ -69,7 +69,7 @@ export default class Categories extends Component {
                   <Icon name={this.isFavorite(category) ? 'minus' : 'plus'} />
                 </Block>
                 <Image source={category.icon} style={styles.categoryIcon}/>
-                <Text size={13} medium color='white' style={styles.categoryName}>{category.name}</Text>
+                <Text size={16} medium color='white' style={styles.categoryName}>{category.name}</Text>
               </Card>
             </TouchableOpacity>
           ))}
