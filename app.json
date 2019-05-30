@@ -22,8 +22,8 @@
     "assetBundlePatterns": [
       "**/*"
     ],
-    "facebookScheme": "fb2307676729290603",
-    "facebookAppId": "2307676729290603",
+    "facebookScheme": "fb...",
+    "facebookAppId": "...",
     "facebookDisplayName": "com.ChallengeApp",
     "ios": {
       "supportsTablet": true,
