@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ActivityIndicator, Keyboard, KeyboardAvoidingView,ScrollView, StyleSheet,ImageBackground,Dimensions,TouchableWithoutFeedback } from 'react-native'
+import { ActivityIndicator, Keyboard, KeyboardAvoidingView,ScrollView, StyleSheet,ImageBackground,Dimensions,TouchableWithoutFeedback,AsyncStorage } from 'react-native'
 
 import { Button, Block, Input, Text } from '../components';
 import { theme,utils } from '../constants';
