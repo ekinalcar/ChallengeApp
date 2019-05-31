@@ -69,7 +69,6 @@ export default class Login extends Component {
 
 	async logIn() {
 	  try {
-
 			const { navigation } = this.props;
 	    const {type,token} = await Facebook.logInWithReadPermissionsAsync('2307676729290603', {permissions: ['public_profile','email'], behavior: "web"});
 
