@@ -14,19 +14,21 @@ export default class App extends React.Component {
 		super(props);
 
     this.state = {
-      is_logged_in: 'false'
+      is_logged_in: 'false',
     };
 
 		this.isLoginControl();
 	}
 
   async isLoginControl() {
-		utils.getToken().then((res) => {
+		utils.getToken('access_token').then((res) => {
 			if (res){
         this.setState({ is_logged_in: 'true' });
       }
 		})
 	}
+
+  
 
   render() {
     if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {

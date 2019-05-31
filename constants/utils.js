@@ -11,16 +11,18 @@ const serializeKey = (data) => {
 	return formBody;
 }
 
-async function getToken(){
-	var access_token = await AsyncStorage.getItem('access_token');
-	if(access_token !== null){
-		return true;
+async function getToken(tokenName){
+	var value = await AsyncStorage.getItem(tokenName);
+	if(value !== null){
+		return value;
 	}
 	return false;
 }
 
-async function setToken(token){
- AsyncStorage.setItem('access_token',token);
+async function setToken(tokenName,token){
+	console.log(tokenName);
+	console.log(token);
+	AsyncStorage.setItem(tokenName,token);
 }
 
 async function removeToken(key) {

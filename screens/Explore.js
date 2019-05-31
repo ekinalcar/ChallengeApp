@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import {ScrollView,StyleSheet,TouchableOpacity,ImageBackground,Dimensions,FlatList,Image} from 'react-native'
+import {ScrollView,StyleSheet,TouchableOpacity,ImageBackground,Dimensions,FlatList,Image,AsyncStorage} from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Carousel from 'react-native-snap-carousel';
 import {Block, Card, Text,SliderEntry } from '../components';
-import { theme,data,animations} from '../constants';
+import { theme,data,animations,utils} from '../constants';
 import { sliderWidth, itemWidth } from '../constants/SliderEntry.style';
 import SliderStyles, { colors } from '../constants/index.style';
 import Challenge from '../components/Challenge';

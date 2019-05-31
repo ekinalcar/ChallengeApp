@@ -56,7 +56,7 @@ export default class Login extends Component {
       .then((res) => res.json())
       .then((res) => {
         if(res.result == 1){
-					utils.setToken('1');
+					utils.setToken('access_token','1');
           navigation.navigate('Explore');
         }
         else{
@@ -70,6 +70,7 @@ export default class Login extends Component {
 
 	async logIn() {
 	  try {
+
 			const { navigation } = this.props;
 	    const {type,token} = await Facebook.logInWithReadPermissionsAsync('2307676729290603', {permissions: ['public_profile','email'], behavior: "web"});
 
@@ -77,9 +78,12 @@ export default class Login extends Component {
 	      const response = await fetch(`https://graph.facebook.com/me?fields=id,picture,name,first_name,last_name,email,gender&access_token=${token}`);
 				const userInfo = await response.json();
 				this.setState({userInfo});
-	      //Alert.alert('Logged in!', `Hi ${(await response.json()).name}!`);
-				utils.setToken('1');
+
+				utils.setToken('facebookInfo',JSON.stringify(userInfo));
+				utils.setToken('access_token','1');
+
 				navigation.navigate('Explore');
+
 	    } else {
 	     	Alert.alert('hata');
 	    }

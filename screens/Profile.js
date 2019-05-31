@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {StyleSheet,ScrollView,SafeAreaView,TouchableOpacity,Image,Dimensions,TextInput,ImageBackground } from 'react-native'
+import {StyleSheet,ScrollView,SafeAreaView,TouchableOpacity,Image,Dimensions,TextInput,ImageBackground,AsyncStorage } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import {Block,Text,Divider,Card} from '../components';
@@ -15,6 +15,7 @@ export default class Profile extends Component {
     favorite: [],
     profile: {},
     editing:null,
+    facebookInfo:[]
   }
 
   toggleFav = item => {
@@ -36,6 +37,11 @@ export default class Profile extends Component {
       profile: this.props.profile ,
       categories: this.props.categories ,
     });
+
+    utils.getToken('facebookInfo').then(req => JSON.parse(req))
+      .then((json) => {
+        this.setState({facebookInfo:json});
+      });
   }
 
   handleEdit(name,text){
@@ -66,6 +72,7 @@ export default class Profile extends Component {
   }
 
   handleLogout(){
+    utils.removeToken('facebookInfo');
 		utils.removeToken('access_token').then((res) => {
 			if (res){
         this.props.navigation.navigate('Login')
@@ -74,7 +81,8 @@ export default class Profile extends Component {
   }
 
   render() {
-    const { profile,editing} = this.state;
+    const { profile,editing,facebookInfo} = this.state;
+    console.log(facebookInfo);
     return (
       <SafeAreaView style={styles.container}>
         <ScrollView showsVerticalScrollIndicator={false}>
@@ -116,8 +124,15 @@ export default class Profile extends Component {
             <Divider padding={[1,0]} flex={false} color='gray2' style={{marginHorizontal:15}}/>
             <Block row space="between" margin={[10, 0,]} style={styles.inputRow}>
               <Block>
+                <Text black bold style={{ marginBottom: 10 }}>First Name / Last Name</Text>
+                <Text medium>{facebookInfo.first_name} - {facebookInfo.last_name}</Text>
+              </Block>
+            </Block>
+            <Divider padding={[1,0]} flex={false} color='gray2' style={{marginHorizontal:15}}/>
+            <Block row space="between" margin={[10, 0,]} style={styles.inputRow}>
+              <Block>
                 <Text black bold style={{ marginBottom: 10 }}>E-mail</Text>
-                <Text medium>{profile.email}</Text>
+                <Text medium>{facebookInfo.email}</Text>
               </Block>
             </Block>
             <Divider padding={[1,0]} flex={false} color='gray2' style={{marginHorizontal:15}}/>
