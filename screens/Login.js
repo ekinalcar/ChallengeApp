@@ -19,7 +19,6 @@ export default class Login extends Component {
       password:'',
       errors: [],
       loading: false,
-			userInfo:null,
     };
   }
 
@@ -77,7 +76,6 @@ export default class Login extends Component {
 	    if (type === 'success') {
 	      const response = await fetch(`https://graph.facebook.com/me?fields=id,picture,name,first_name,last_name,email,gender&access_token=${token}`);
 				const userInfo = await response.json();
-				this.setState({userInfo});
 
 				utils.setToken('facebookInfo',JSON.stringify(userInfo));
 				utils.setToken('access_token','1');
