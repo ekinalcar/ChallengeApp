@@ -19,6 +19,7 @@ export default class Login extends Component {
       password:'',
       errors: [],
       loading: false,
+			testing:[],
     };
   }
 
