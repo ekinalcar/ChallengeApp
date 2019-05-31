@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {StyleSheet,ScrollView,SafeAreaView,TouchableOpacity,Image,Dimensions,TextInput,ImageBackground,AsyncStorage } from 'react-native'
+import {StyleSheet,ScrollView,SafeAreaView,TouchableOpacity,Image,Dimensions,TextInput,ImageBackground} from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import {Block,Text,Divider,Card} from '../components';
@@ -15,22 +15,22 @@ export default class Profile extends Component {
     favorite: [],
     profile: {},
     editing:null,
-    facebookInfo:[]
+    facebookInfo:[],
+    facebookProfilePicture: 'https://facebook.github.io/react-native/docs/assets/favicon.png'
   }
 
   toggleFav = item => {
     const id = item.id;
     this.setState(({ favorite }) => ({
-      favorite: this.isFavorite(item)
-        ? favorite.filter(a => a !== id)
-        : [...favorite, id],
-    }));
+      favorite: this.isFavorite(item) ? favorite.filter(a => a != id) : [...favorite, id],
+    }))
   };
 
   isFavorite = item => {
     const id = item.id;
     return this.state.favorite.includes(id);
   };
+
 
   componentDidMount() {
     this.setState({
@@ -40,7 +40,11 @@ export default class Profile extends Component {
 
     utils.getToken('facebookInfo').then(req => JSON.parse(req))
       .then((json) => {
-        this.setState({facebookInfo:json});
+        if(json){
+          this.setState({facebookInfo:json,facebookProfilePicture:json.picture.data.url});
+        }else{
+          this.setState({facebookInfo:this.props.profile});
+        }
       });
   }
 
@@ -81,18 +85,18 @@ export default class Profile extends Component {
   }
 
   render() {
-    const { profile,editing,facebookInfo} = this.state;
-    console.log(facebookInfo);
+    const {editing,facebookInfo,facebookProfilePicture} = this.state;
     return (
       <SafeAreaView style={styles.container}>
         <ScrollView showsVerticalScrollIndicator={false}>
-          <Block flex={false} row space='between'>
+          <Block>
+            <Block row space='between' style={{alignItems:'center',marginBottom:10}}>
+              <Image source={{uri:facebookProfilePicture}} style={{width:50,height:50,borderRadius:25}} />
+              <TouchableOpacity onPress={() => this.handleLogout()}><Icon name='sign-out' size={26} color='black' /></TouchableOpacity>
+            </Block>
             <Block>
               <Text size={32} medium style={styles.mainHeader}>Profile</Text>
               <Text size={16} light style={styles.subHeader}>Edit your categories and profile</Text>
-            </Block>
-            <Block style={{position:'absolute',right:0,top:0}}>
-              <TouchableOpacity onPress={() => this.handleLogout()}><Icon name='sign-out' size={26} color='black' /></TouchableOpacity>
             </Block>
           </Block>
           <Divider padding={[1,0]} flex={false} color='gray'/>

@@ -120,6 +120,8 @@ const profile = {
   username: 'ekinalcar',
   location: 'istanbul',
   email: 'ekinalcar@gmail.com',
+  first_name:'Ekin',
+  last_name:'Alcar'
 };
 
 

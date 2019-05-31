@@ -19,11 +19,8 @@ export default class Login extends Component {
       password:'',
       errors: [],
       loading: false,
-			testing:[],
     };
   }
-
-
 
   handleLogin() {
     const { navigation } = this.props;
@@ -76,7 +73,7 @@ export default class Login extends Component {
 	    const {type,token} = await Facebook.logInWithReadPermissionsAsync('2307676729290603', {permissions: ['public_profile','email'], behavior: "web"});
 
 	    if (type === 'success') {
-	      const response = await fetch(`https://graph.facebook.com/me?fields=id,picture,name,first_name,last_name,email,gender&access_token=${token}`);
+	      const response = await fetch(`https://graph.facebook.com/me?fields=id,picture,name,first_name,last_name,email&access_token=${token}`);
 				const userInfo = await response.json();
 
 				utils.setToken('facebookInfo',JSON.stringify(userInfo));

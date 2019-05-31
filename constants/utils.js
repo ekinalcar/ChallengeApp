@@ -13,15 +13,13 @@ const serializeKey = (data) => {
 
 async function getToken(tokenName){
 	var value = await AsyncStorage.getItem(tokenName);
-	if(value !== null){
+	if(value !== null || value !== undefined){
 		return value;
 	}
 	return false;
 }
 
 async function setToken(tokenName,token){
-	console.log(tokenName);
-	console.log(token);
 	AsyncStorage.setItem(tokenName,token);
 }
 
