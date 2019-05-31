@@ -15,6 +15,7 @@ export default class Categories extends Component {
     favorite: [],
   }
 
+
   toggleFav = item => {
     const id = item.id;
     this.setState(({ favorite }) => ({
