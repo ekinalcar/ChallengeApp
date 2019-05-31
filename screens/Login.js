@@ -22,6 +22,8 @@ export default class Login extends Component {
     };
   }
 
+
+
   handleLogin() {
     const { navigation } = this.props;
     var email = this.state.email;
