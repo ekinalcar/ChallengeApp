@@ -1,9 +1,9 @@
 import React , {Component}from "react";
 import {Easing,Animated,Image} from 'react-native';
 import {createStackNavigator,createBottomTabNavigator,createSwitchNavigator,createAppContainer} from "react-navigation";
-
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {utils} from '../constants';
+
 //tab
 import Explore from '../screens/Explore';
 import Categories from '../screens/Categories';
@@ -67,7 +67,7 @@ const transitionConfig = () => {
 }
 
 class ImageHandler extends Component {
-  
+
   state = {
     tabBarProfileIcon: 'https://facebook.github.io/react-native/docs/assets/favicon.png'
   }
@@ -84,8 +84,8 @@ class ImageHandler extends Component {
   render(){
     return(
       <Image
-      source={{uri:this.state.tabBarProfileIcon}}
-      style= {{width:15, height:15,borderRadius:7}}>
+        source={{uri:this.state.tabBarProfileIcon}}
+        style= {{width:15, height:15,borderRadius:7}}>
       </Image>
     )
   }
@@ -113,6 +113,12 @@ const SignedOut = createStackNavigator({
 });
 
 const SignedIn = createBottomTabNavigator({
+  Popular: {
+    screen: Popular,
+    navigationOptions: () => ({
+      tabBarIcon: ({tintColor}) => <Icon name='fire' color={tintColor} size={16}/>
+    })
+  },
   Explore: {
     screen: Explore,
     navigationOptions: () => ({
@@ -125,16 +131,10 @@ const SignedIn = createBottomTabNavigator({
       tabBarIcon: ({tintColor}) => <Icon name='list' color={tintColor} size={16}/>
     })
   },
-  Popular: {
-    screen: Popular,
-    navigationOptions: () => ({
-      tabBarIcon: ({tintColor}) => <Icon name='fire' color={tintColor} size={16}/>
-    })
-  },
   Profile: {
     screen: Profile,
     navigationOptions: () => ({
-      tabBarIcon: ({ tintColor }) => (
+      tabBarIcon: ({tintColor}) => (
         <ImageHandler/>
       )
     })

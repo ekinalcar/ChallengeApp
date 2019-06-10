@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {StyleSheet,TouchableOpacity,FlatList,SafeAreaView,UIManager,Platform,LayoutAnimation,ScrollView,Image} from 'react-native'
+import {StyleSheet,TouchableOpacity,FlatList,SafeAreaView,UIManager,Platform,LayoutAnimation,ScrollView,Image,AsyncStorage} from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import {Block,Text,Divider,Card} from '../components';
@@ -13,34 +13,66 @@ export default class Popular extends Component {
     header:null
   });
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    this.togglePressed = this.togglePressed.bind(this);
 
     this.state = {
       popular:[],
-      expanded: false,
+      expanded: true,
       sort : 'latest',
       show_me: 'all',
       categories: [],
-      itemPressed: -1
-     }
-
+      itemsPressed: [],
+      refresh:true,
+    }
     if (Platform.OS === 'android') {
       UIManager.setLayoutAnimationEnabledExperimental(true);
     }
   }
 
-  typeSelected(value) {
+  togglePressed = item => {
+    const id = item.id;
+    this.setState(({ itemsPressed }) => ({
+      itemsPressed: this.isItemPressed(item) ? itemsPressed.filter(a => a != id) : [...itemsPressed, id],
+    }))
     this.setState({
-       itemPressed: value
-    });
-  }
+      refresh: !this.state.refresh
+  })
+  };
+
+  isItemPressed = item => {
+    const id = item.id;
+    return this.state.itemsPressed.includes(id);
+  };
 
   componentDidMount() {
     this.setState({
       categories:this.props.categories,
       popular:this.props.popular,
     });
+    //this.getFromStorage();
+  }
+
+  /*addToStorage(favCategories){
+    AsyncStorage.setItem('itemsPressed', JSON.stringify(favCategories));
+  }*/
+
+  /*async getFromStorage(){
+    return AsyncStorage.getItem('itemsPressed').then(req => JSON.parse(req))
+      .then((json) => {
+        if(json){
+          this.setState({
+            itemsPressed:json
+          });
+        }
+        }
+      )
+  }*/
+
+  componentDidUpdate(){
+    //this.addToStorage(this.state.itemsPressed);
+    console.log(this.state.itemsPressed);
   }
 
   changeLayout = () => {
@@ -48,8 +80,22 @@ export default class Popular extends Component {
     this.setState({ expanded: !this.state.expanded });
   }
 
+
+  renderTabItem = ({ item,index }) => (
+    <TouchableOpacity
+      style={styles.category}
+      key={index}
+      onPress={() => this.togglePressed(item)}
+    >
+      <Card center style={[styles.card,{backgroundColor: this.isItemPressed(item) ? item.color : 'gray' }]}>
+        <Image source={item.icon} style={styles.categoryIcon}/>
+      </Card>
+      <Text size={12} center style={styles.categoryName} medium color='black'>{item.name.toLowerCase()}</Text>
+    </TouchableOpacity>
+);
+
   renderTab(){
-    const {itemPressed} = this.state;
+    const {categories} = this.state;
     return (
       <FlatList
       horizontal = {true}
@@ -58,24 +104,13 @@ export default class Popular extends Component {
       showsHorizontalScrollIndicator={false}
       scrollEventThrottle={16}
       snapToAlignment='center'
-      data={this.state.categories}
+      extraData={this.state.refresh}
+      data={categories}
       keyExtractor={(item) => `${item.id}`}
-      renderItem={({ item,index }) => (
-        <TouchableOpacity
-          style={styles.category}
-          key={index}
-          onPress={() => this.typeSelected(item.id)}
-        >
-          <Card center style={[styles.card,{backgroundColor: itemPressed  === item.id ? item.color : 'gray'}]}>
-            <Image source={item.icon} style={styles.categoryIcon}/>
-          </Card>
-          <Text size={12} center style={styles.categoryName} medium color='black'>{item.name.toLowerCase()}</Text>
-        </TouchableOpacity>
-        )}
+      renderItem={this.renderTabItem}
       />
     )
   }
-
 
   renderFilter(){
     const {sort,show_me} = this.state;
@@ -137,11 +172,12 @@ export default class Popular extends Component {
   }
 
   renderPopular(){
+    const {popular} = this.state;
     return (
       <FlatList
       snapToAlignment='center'
       showsVerticalScrollIndicator={false}
-      data={this.state.popular}
+      data={popular}
       keyExtractor={(item) => `${item.id}`}
       renderItem={({item}) => (
           <Challenge challenge={item} navigation={this.props.navigation}/>

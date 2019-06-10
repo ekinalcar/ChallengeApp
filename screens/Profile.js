@@ -31,11 +31,10 @@ export default class Profile extends Component {
     return this.state.favorite.includes(id);
   };
 
-
   componentDidMount() {
     this.setState({
-      profile: this.props.profile ,
-      categories: this.props.categories ,
+      profile: this.props.profile,
+      categories: this.props.categories,
     });
 
     utils.getToken('facebookInfo').then(req => JSON.parse(req))
@@ -67,8 +66,8 @@ export default class Profile extends Component {
     if(editing === name){
       return(
         <TextInput
-        defaultValue = {profile[name]}
-        onChangeText={text => this.handleEdit([name],text)}
+          defaultValue = {profile[name]}
+          onChangeText={text => this.handleEdit([name],text)}
         />
       )
     }
