@@ -3,30 +3,10 @@ import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { AppLoading, Asset, Font} from 'expo';
 import AppNavigator from './navigation/AppNavigator';
 
-import {utils} from './constants';
-
 export default class App extends React.Component {
   state = {
     isLoadingComplete: false,
   };
-
-  constructor(props) {
-		super(props);
-
-    this.state = {
-      is_logged_in: 'false',
-    };
-
-		this.isLoginControl();
-	}
-
-  async isLoginControl() {
-		utils.getToken('access_token').then((res) => {
-			if (res){
-        this.setState({ is_logged_in: 'true' });
-      }
-		})
-	}
 
   render() {
     if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
@@ -41,7 +21,7 @@ export default class App extends React.Component {
       return (
         <View style={styles.container}>
           {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-          <AppNavigator loginData={this.state.is_logged_in} />
+            <AppNavigator/>
         </View>
       );
     }

@@ -19,7 +19,7 @@ export default class Popular extends Component {
 
     this.state = {
       popular:[],
-      expanded: true,
+      expanded: false,
       sort : 'latest',
       show_me: 'all',
       categories: [],
@@ -38,7 +38,7 @@ export default class Popular extends Component {
     }))
     this.setState({
       refresh: !this.state.refresh
-  })
+    })
   };
 
   isItemPressed = item => {
@@ -51,27 +51,9 @@ export default class Popular extends Component {
       categories:this.props.categories,
       popular:this.props.popular,
     });
-    //this.getFromStorage();
   }
 
-  /*addToStorage(favCategories){
-    AsyncStorage.setItem('itemsPressed', JSON.stringify(favCategories));
-  }*/
-
-  /*async getFromStorage(){
-    return AsyncStorage.getItem('itemsPressed').then(req => JSON.parse(req))
-      .then((json) => {
-        if(json){
-          this.setState({
-            itemsPressed:json
-          });
-        }
-        }
-      )
-  }*/
-
   componentDidUpdate(){
-    //this.addToStorage(this.state.itemsPressed);
     console.log(this.state.itemsPressed);
   }
 

@@ -20,15 +20,23 @@ export default class Login extends Component {
       errors: [],
       loading: false,
     };
+		this.isLoginControl();
   }
+
+	async isLoginControl() {
+		const { navigation } = this.props;
+		utils.getToken('access_token').then((res) => {
+			if (res){
+        navigation.navigate('Explore');
+      }
+		})
+	}
 
   handleLogin() {
     const { navigation } = this.props;
     var email = this.state.email;
 		var password = this.state.password;
     const errors = [];
-
-    console.log('email is : ' +email+ ' password is : '+password);
 
     Keyboard.dismiss();
     this.setState({ loading: true });
@@ -145,7 +153,6 @@ export default class Login extends Component {
     )
   }
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,

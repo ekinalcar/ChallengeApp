@@ -8,6 +8,8 @@ import { sliderWidth, itemWidth } from '../constants/SliderEntry.style';
 import SliderStyles, { colors } from '../constants/index.style';
 import Challenge from '../components/Challenge';
 
+
+
 const {width} = Dimensions.get('window');
 const SLIDER_1_FIRST_ITEM = 3;
 
@@ -183,6 +185,7 @@ export default class Explore extends Component {
           </Block>
         </ImageBackground>
         {slideShow}
+        
         <Block style={styles.challenges}>
           <Text h2 bold color={theme.colors.black}>More Challenge</Text>
           <Text size={14} medium color={theme.colors.black} style={{marginTop:5}}>Browse more challenge by category</Text>
@@ -212,7 +215,6 @@ Explore.defaultProps = {
   popular: data.popular,
   illustrations: data.illustrations,
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
