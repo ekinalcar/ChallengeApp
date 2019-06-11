@@ -8,11 +8,6 @@ import { theme,data } from '../constants';
 import Challenge from '../components/Challenge';
 
 export default class Category extends Component {
-
-  static navigationOptions = ({navigation}) => ({
-    header:null
-  });
-
   state = {
     popular:[],
   }
@@ -45,7 +40,7 @@ export default class Category extends Component {
       <SafeAreaView style={styles.container}>
         <Block flex={false} row>
           <Block>
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('Explore')}><Icon name='arrow-left' color='black' size={15} /></TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('Explore')}><Icon name='arrow-left' color='black' size={15} /></TouchableOpacity>
             <Text size={32} medium style={styles.mainHeader}>{categoryName}</Text>
             <Text size={14} light style={styles.subHeader}>The best game challenges for you</Text>
           </Block>

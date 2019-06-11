@@ -7,11 +7,6 @@ import { theme } from '../constants';
 
 const {width} = Dimensions.get('window');
 export default class Detail extends Component {
-
-  static navigationOptions = ({navigation}) => ({
-    header:null,
-  });
-
   constructor(props) {
     super(props);
     this.state = {
@@ -37,17 +32,16 @@ export default class Detail extends Component {
   }
 
   renderHeader(){
-    const { navigation } = this.props;
-    const challengeId = navigation.getParam('challengeId', 'NO-ID');
-    const challengeName = navigation.getParam('challengeName', 'NO-NAME');
+    const { goBack } = this.props.navigation;
+    //const { navigation } = this.props;
+    //const challengeId = navigation.getParam('challengeId', 'NO-ID');
+    //const challengeName = navigation.getParam('challengeName', 'NO-NAME');
+
     return(
       <ImageBackground style={styles.imageTop} source={require('../assets/images/Login/ch_3.png')}>
         <Block padding={[75, theme.sizes.base * 2]} row space='between'>
           <TouchableOpacity onPress={() => {
-              navigation.navigate('Category',{
-                categoryName: challengeName,
-                categoryId: challengeId
-              });
+              goBack()
             }}>
             <Icon name='arrow-left' color='white' size={15} />
           </TouchableOpacity>

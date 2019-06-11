@@ -8,11 +8,6 @@ import { theme,data } from '../constants';
 import Challenge from '../components/Challenge';
 
 export default class Popular extends Component {
-
-  static navigationOptions = ({navigation}) => ({
-    header:null
-  });
-
   constructor(props) {
     super(props);
     this.togglePressed = this.togglePressed.bind(this);

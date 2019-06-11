@@ -74,10 +74,55 @@ const SignedOut = createStackNavigator({
   }
 });
 
+const mainStack =  createStackNavigator({
+  Category: {
+    screen: Category,
+  },
+  Detail: {
+    screen: Detail,
+  }
+  }, {
+  initialRouteName: 'Category',
+  headerMode: 'none',
+  navigationOptions: {
+    headerVisible: false,
+  }
+});
+
+//explore stack routes
+const ExploreStack = createStackNavigator({
+  Explore:{
+    screen:Explore,
+  },
+  Stack:{
+    screen:mainStack,
+  }
+}, {
+  headerMode: 'none',
+  navigationOptions: {
+    headerVisible: false,
+  }
+});
+
+//popular stack routes
+const PopularStack = createStackNavigator({
+  Popular:{
+    screen:Popular,
+  },
+  Detail: {
+    screen: Detail,
+  }
+  },{
+  headerMode: 'none',
+  navigationOptions: {
+    headerVisible: false,
+  }
+});
+
 //bottom tab navigator
 const SignedIn = createBottomTabNavigator({
   Explore: {
-    screen: Explore,
+    screen: ExploreStack,
     navigationOptions: () => ({
       tabBarIcon: ({tintColor}) => <Icon name='search' color={tintColor} size={16}/>,
     })
@@ -89,7 +134,7 @@ const SignedIn = createBottomTabNavigator({
     })
   },
   Popular: {
-    screen: Popular,
+    screen: PopularStack,
     navigationOptions: () => ({
       tabBarIcon: ({tintColor}) => <Icon name='fire' color={tintColor} size={16}/>
     })
@@ -113,30 +158,22 @@ const SignedIn = createBottomTabNavigator({
       fontSize: 12,
       marginBottom:5
     },
-  }
-});
-
-const Stack = createStackNavigator({
-  AppTabNavigator: {
-    screen: SignedIn,
-    navigationOptions: ({ navigation }) => ({
+  },navigationOptions: ({ navigation }) => ({
       header:null
     })
+});
+
+const combinedNavigation = createStackNavigator({
+  AppTabNavigator: {
+    screen: SignedIn,
   },
-  Category: {
-    screen: Category,
-  },
-  Detail: {
-    screen: Detail,
-  }
-}, {
-  initialRouteName: 'Category',
+  Stack:mainStack
 });
 
 const FullRoute = createAppContainer(createSwitchNavigator(
   {
     SignedOut: SignedOut,
-    Stack:Stack
+    Stack:combinedNavigation
   },
   {
     initialRouteName: 'SignedOut',
