@@ -4,7 +4,7 @@ import { Button, Block, Input, Text } from '../components';
 import { theme,utils } from '../constants';
 import { Facebook } from 'expo';
 
-const DismissKeyboard = ({children}) =>(
+ const DismissKeyboard = ({children}) =>(
 	<TouchableWithoutFeedback onPress={()=>Keyboard.dismiss()}>
 	 {children}
 	</TouchableWithoutFeedback>

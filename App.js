@@ -1,6 +1,7 @@
 import React from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
-import { AppLoading, Asset, Font} from 'expo';
+import { AppLoading, Font} from 'expo';
+import {Asset} from 'expo-asset';
 import AppNavigator from './navigation/AppNavigator';
 
 export default class App extends React.Component {
@@ -32,7 +33,7 @@ export default class App extends React.Component {
       Asset.loadAsync([
         require('./assets/images/Base/Logo.png'),
       ]),
-      Font.loadAsync({
+      /*Font.loadAsync({
         // This is the font that we are using for our tab bar
         // ...Icon.Ionicons.font,
         'Rubik-Black': require('./assets/fonts/Rubik-Black.ttf'),
@@ -45,7 +46,7 @@ export default class App extends React.Component {
         'Rubik-Medium': require('./assets/fonts/Rubik-Medium.ttf'),
         'Rubik-MediumItalic': require('./assets/fonts/Rubik-MediumItalic.ttf'),
         'Rubik-Regular': require('./assets/fonts/Rubik-Regular.ttf'),
-      }),
+      }),*/
     ]);
   };
 
