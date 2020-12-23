@@ -7,23 +7,31 @@
     "eject": "expo eject"
   },
   "dependencies": {
-    "expo": "^35.0.0",
+    "@react-native-community/masked-view": "^0.1.10",
+    "@react-navigation/bottom-tabs": "^5.11.2",
+    "@react-navigation/drawer": "^5.11.4",
+    "expo": "^40.0.0",
+    "expo-app-loading": "^1.0.1",
     "prop-types": "^15.7.2",
-    "react": "16.8.3",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-35.0.0.tar.gz",
+    "react": "16.13.1",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-40.0.0.tar.gz",
     "react-native-fbsdk": "^0.8.0",
-    "react-native-gesture-handler": "^1.4.1",
+    "react-native-gesture-handler": "~1.8.0",
     "react-native-instagram-login": "^1.1.1",
     "react-native-keyboard-aware-scroll-view": "^0.8.0",
+    "react-native-reanimated": "~1.13.0",
+    "react-native-safe-area-context": "3.1.9",
+    "react-native-screens": "~2.15.0",
     "react-native-snap-carousel": "^3.8.0",
-    "react-native-vector-icons": "^6.4.2",
-    "react-native-webview": "^5.12.1",
+    "react-native-vector-icons": "^6.7.0",
+    "react-native-webview": "11.0.0",
     "react-navigation": "^3.13.0",
+    "react-navigation-stack": "^2.10.2",
     "react-redux": "^6.0.1",
     "redux": "^4.0.1"
   },
   "devDependencies": {
-    "babel-preset-expo": "^5.0.0"
+    "babel-preset-expo": "8.3.0"
   },
   "private": true
 }
