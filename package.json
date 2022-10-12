@@ -15,7 +15,7 @@
     "prop-types": "^15.7.2",
     "react": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-40.0.0.tar.gz",
-    "react-native-fbsdk": "^0.8.0",
+    "react-native-fbsdk": "^3.0.0",
     "react-native-gesture-handler": "~1.8.0",
     "react-native-instagram-login": "^1.1.1",
     "react-native-keyboard-aware-scroll-view": "^0.8.0",
